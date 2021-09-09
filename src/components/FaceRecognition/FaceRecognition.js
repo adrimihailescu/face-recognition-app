@@ -3,7 +3,7 @@ import React from 'react';
 const FaceRecognition = ({ imageUrl }) => {
     return (
         <div className='center'>
-            <img alt='' src={imageUrl} />
+            <img alt='will update later on' src={imageUrl} />
         </div>
     );
 }
