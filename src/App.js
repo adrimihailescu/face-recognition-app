@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
+/* import Clarifai from 'clarifai'; */
 import Navigation from './components/Navigation/Navigation.js';
 import Register from './components/Register/Register.js';
 import Signin from './components/Signin/Signin.js';
@@ -13,10 +13,10 @@ import './App.css';
 
 
 
-const app = new Clarifai.App({
+/* const app = new Clarifai.App({
   apiKey: 'd208bbc5f14244d0bc73556038b4f152'
 });
-
+ */
 const particleOptions = {
   particles: {
     number: {
@@ -94,18 +94,27 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
+    /*  app.models
+       .initModel({
+         id: Clarifai.FACE_DETECT_MODEL,
+ 
+       })
+       .then((faceDetectModel) => {
+         // console.log(faceDetectModel)
+         return faceDetectModel.predict(
+           this.state.input
+         );
+       }) */
+    /* hide API key to backend */
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .initModel({
-        id: Clarifai.FACE_DETECT_MODEL,
-
+    fetch('http://localhost:3030/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
       })
-      .then((faceDetectModel) => {
-        // console.log(faceDetectModel)
-        return faceDetectModel.predict(
-          this.state.input
-        );
-      })
+    })
+      .then(response => response.json())
       .then(response => {
         if (response) {
           fetch('http://localhost:3030/image', {
